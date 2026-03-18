@@ -1,0 +1,80 @@
+﻿<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>003</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --shift-left: 5cm;
+      --page-pad-x: clamp(18px, 4vw, 24px);
+      --page-pad-top: clamp(18px, 4vw, 24px);
+      --page-pad-bottom: clamp(24px, 5vw, 32px);
+      --mobile-top-offset: 72px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-family: "Space Mono", "Lucida Console", "Courier New", Courier, monospace;
+      background: #fff;
+      color: #111;
+      padding:
+        calc(var(--page-pad-top) + env(safe-area-inset-top, 0px))
+        calc(var(--page-pad-x) + env(safe-area-inset-right, 0px))
+        calc(var(--page-pad-bottom) + env(safe-area-inset-bottom, 0px))
+        max(calc(var(--page-pad-x) + env(safe-area-inset-left, 0px)), var(--shift-left));
+    }
+    .back-arrow {
+      position: fixed;
+      top: calc(var(--page-pad-top) + env(safe-area-inset-top, 0px));
+      left: max(14px, calc(var(--page-pad-x) + env(safe-area-inset-left, 0px) - 10px));
+      z-index: 1000;
+      color: #111;
+      text-decoration: none;
+      font-size: clamp(24px, 5vw, 1.15cm);
+      width: clamp(44px, 8vw, 1.3cm);
+      height: clamp(44px, 8vw, 1.3cm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      font-weight: 700;
+      padding: 0;
+    }
+    .back-arrow:hover { opacity: 0.7; }
+    main {
+      width: min(900px, 100%);
+      text-align: left;
+    }
+    @media (max-width: 900px) {
+      :root {
+        --shift-left: 24px;
+      }
+
+      body {
+        justify-content: flex-start;
+        padding-top: calc(var(--mobile-top-offset) + env(safe-area-inset-top, 0px));
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="back-arrow" href="index.html" aria-label="Volver al index">&#8592;</a>
+  <main>
+    <h1>003</h1>
+    <p>Archivo en preparación.</p>
+  </main>
+</body>
+</html>

@@ -1,0 +1,106 @@
+:root {
+  --bg: #ffffff;
+  --ink: #111111;
+  --line: #1a1a1a;
+  --page-pad-x: clamp(14px, 3vw, 28px);
+  --page-pad-y: clamp(14px, 3vw, 26px);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Space Mono", "Lucida Console", "Courier New", Courier, monospace;
+  overflow: hidden;
+}
+
+.escena {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.espiral-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.etiqueta-esquina {
+  position: absolute;
+  top: clamp(14px, 2.2vw, 26px);
+  left: clamp(14px, 2.2vw, 28px);
+  z-index: 2;
+  margin: 0;
+  letter-spacing: 0.08em;
+  font-size: clamp(0.72rem, 1.2vw, 0.92rem);
+  font-family: inherit;
+  color: var(--ink);
+  opacity: 0.94;
+  max-width: calc(100vw - (var(--page-pad-x) * 2));
+}
+
+.palabra-centro {
+  position: absolute;
+  top: 54%;
+  left: 50%;
+  z-index: 2;
+  margin: 0;
+  transform: translate(-50%, -50%);
+  font-weight: 600;
+  font-size: clamp(1.3rem, 3vw, 2.15rem);
+  letter-spacing: 0.08em;
+  color: var(--ink);
+  text-transform: lowercase;
+  font-style: normal;
+  font-family: inherit;
+}
+
+.trazo-espiral {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 2.1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.9;
+}
+
+.punto-orbita {
+  fill: var(--ink);
+  cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .escena {
+    min-height: 100svh;
+  }
+
+  .etiqueta-esquina {
+    top: calc(var(--page-pad-y) + env(safe-area-inset-top, 0px));
+    left: calc(var(--page-pad-x) + env(safe-area-inset-left, 0px));
+  }
+
+  .palabra-centro {
+    top: 52%;
+    width: min(88vw, 360px);
+    text-align: center;
+  }
+}
