@@ -1,7 +1,9 @@
 ﻿<!doctype html>
 <html lang="es">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>004</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
@@ -24,7 +26,7 @@
       min-height: 100svh;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       font-family: "Space Mono", "Lucida Console", "Courier New", Courier, monospace;
       background: #fff;
       color: #111;
@@ -33,7 +35,11 @@
         calc(var(--page-pad-x) + env(safe-area-inset-right, 0px))
         calc(var(--page-pad-bottom) + env(safe-area-inset-bottom, 0px))
         max(calc(var(--page-pad-x) + env(safe-area-inset-left, 0px)), var(--shift-left));
+      overflow-x: hidden;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
     }
+
     .back-arrow {
       position: fixed;
       top: calc(var(--page-pad-top) + env(safe-area-inset-top, 0px));
@@ -51,28 +57,141 @@
       font-weight: 700;
       padding: 0;
     }
+
     .back-arrow:hover { opacity: 0.7; }
-    main {
-      width: min(900px, 100%);
+
+    .titulo {
+      font-size: clamp(24px, 3vw, 34px);
+      font-weight: 500;
+      margin: 0 0 20px;
+      width: 100%;
       text-align: left;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
+
+    p {
+      font-size: clamp(13px, 2vw, 16px);
+      line-height: 1.6;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      width: 100%;
+      margin: 0 0 24px 0;
+      text-align: justify;
+      hyphens: auto;
+    }
+
+    main {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin: clamp(48px, 8vh, 96px) 0;
+    }
+
+    @media (min-width: 1025px) {
+      main {
+        width: calc(100% + var(--shift-left) + var(--page-pad-x));
+        margin-left: calc(-1 * var(--shift-left));
+      }
+
+      .titulo {
+        padding-right: calc(var(--shift-left) - var(--page-pad-x));
+      }
+
+      p {
+        padding-right: calc(var(--shift-left) - var(--page-pad-x) + 1cm);
+      }
+    }
+
+    .media-container {
+      width: 100%;
+      max-width: 900px;
+    }
+
+    @media (max-width: 1024px) {
+      :root {
+        --shift-left: 3cm;
+      }
+    }
+
     @media (max-width: 900px) {
       :root {
         --shift-left: 24px;
+        --page-pad-x: clamp(12px, 3vw, 18px);
       }
 
       body {
         justify-content: flex-start;
-        padding-top: calc(var(--mobile-top-offset) + env(safe-area-inset-top, 0px));
+        padding:
+          calc(var(--mobile-top-offset) + env(safe-area-inset-top, 0px))
+          calc(var(--page-pad-x) + env(safe-area-inset-right, 0px))
+          calc(var(--page-pad-bottom) + env(safe-area-inset-bottom, 0px))
+          calc(var(--page-pad-x) + env(safe-area-inset-left, 0px));
+      }
+
+      .titulo {
+        font-size: clamp(18px, 5vw, 28px);
+        margin: 0 0 16px 0;
+      }
+
+      p {
+        font-size: clamp(12px, 2.5vw, 15px);
+      }
+    }
+
+    @media (max-width: 600px) {
+      :root {
+        --shift-left: 16px;
+        --page-pad-x: clamp(10px, 2.5vw, 14px);
+      }
+
+      .titulo {
+        font-size: clamp(16px, 6vw, 24px);
+        margin: 0 0 12px 0;
+      }
+
+      p {
+        font-size: clamp(11px, 3vw, 14px);
+        margin: 0 0 16px 0;
+      }
+
+      .back-arrow {
+        font-size: clamp(18px, 5vw, 24px);
+        width: clamp(40px, 8vw, 50px);
+        height: clamp(40px, 8vw, 50px);
+      }
+    }
+
+    @media (max-width: 400px) {
+      :root {
+        --shift-left: 12px;
+        --page-pad-x: 10px;
+      }
+
+      .titulo {
+        font-size: clamp(14px, 5vw, 20px);
+        margin: 0 0 10px 0;
+      }
+
+      p {
+        font-size: clamp(10px, 2.5vw, 12px);
+        line-height: 1.5;
+        margin: 0 0 12px 0;
       }
     }
   </style>
 </head>
 <body>
   <a class="back-arrow" href="index.html" aria-label="Volver al index">&#8592;</a>
+  
+  <h1 class="titulo">004 Título del Nuevo Proyecto</h1>
+  
+  <p>Aquí puedes agregar los párrafos descriptivos de tu cuarto proyecto. Al pegarlos entre estas etiquetas se aplicarán los márgenes simétricos justificados creados en tu hoja de estilos principal.</p>
+  
   <main>
-    <h1>004 Reflexiones sobre la urbanidad, la(s) ciudad(es), lo cotidiano.</h1>
-    <p></p>
+    <div class="media-container">
+      <!-- Pega tu iframe (video, audio) o imagen aquí dentro -->
+    </div>
   </main>
 </body>
 </html>
