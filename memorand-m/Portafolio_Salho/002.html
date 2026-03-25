@@ -41,6 +41,8 @@
         calc(var(--page-pad-bottom) + env(safe-area-inset-bottom, 0px))
         max(calc(var(--page-pad-x) + env(safe-area-inset-left, 0px)), var(--shift-left));
       overflow-x: hidden;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
     }
 
     .back-arrow {
@@ -69,50 +71,167 @@
       font-size: clamp(24px, 3vw, 34px);
       font-weight: 500;
       margin: 0 0 20px;
-      align-self: flex-start;
-      text-align: left;
+      width: 100%;
+      text-align: justify;
+      hyphens: none;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+
+    p {
+      font-size: clamp(13px, 2vw, 16px);
+      line-height: 1.6;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      width: 100%;
+      margin: 0 0 24px 0;
+      text-align: justify;
+      hyphens: none;
     }
 
     main {
-      width: min(1100px, 100%);
-      margin: 0;
-      align-self: center;
-      transform: translateX(calc((24px - var(--shift-left)) / 2));
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      flex: 1;
+    }
+
+    @media (min-width: 1025px) {
+      main {
+        width: calc(100% + var(--shift-left) + var(--page-pad-x));
+        margin-left: calc(-1 * var(--shift-left));
+      }
+
+      .titulo {
+        padding-right: calc(var(--shift-left) - var(--page-pad-x));
+      }
+
+      p {
+        padding-right: calc(var(--shift-left) - var(--page-pad-x) + 1cm);
+      }
     }
 
     #contenedor-visual {
       width: 100%;
+      max-width: 900px;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 52vh;
       min-height: 52svh;
+      touch-action: manipulation;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      position: relative;
     }
 
     #contenedor-visual canvas {
       display: block;
       max-width: 100%;
       height: auto;
+      touch-action: none;
+    }
+
+    @media (max-width: 1024px) {
+      :root {
+        --shift-left: 3cm;
+      }
     }
 
     @media (max-width: 900px) {
       :root {
         --shift-left: 24px;
+        --page-pad-x: clamp(12px, 3vw, 18px);
+      }
+
+      body {
+        padding:
+          calc(var(--mobile-top-offset) + env(safe-area-inset-top, 0px))
+          calc(var(--page-pad-x) + env(safe-area-inset-right, 0px))
+          calc(var(--page-pad-bottom) + env(safe-area-inset-bottom, 0px))
+          calc(var(--page-pad-x) + env(safe-area-inset-left, 0px));
+      }
+
+      .titulo {
+        font-size: clamp(18px, 5vw, 28px);
+        margin: 0 0 16px 0;
+      }
+
+      p {
+        font-size: clamp(12px, 2.5vw, 15px);
+      }
+
+      #contenedor-visual {
+        min-height: 35vh;
+        margin-top: 16px;
+        margin-bottom: 16px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      :root {
+        --shift-left: 16px;
+        --page-pad-x: clamp(10px, 2.5vw, 14px);
+        --page-pad-top: clamp(12px, 3vw, 16px);
       }
 
       body {
         padding-top: calc(var(--mobile-top-offset) + env(safe-area-inset-top, 0px));
       }
 
-      main {
-        transform: none;
+      .titulo {
+        font-size: clamp(16px, 6vw, 24px);
+        margin: 0 0 12px 0;
+      }
+
+      p {
+        font-size: clamp(11px, 3vw, 14px);
+        margin: 0 0 16px 0;
+      }
+
+      #contenedor-visual {
+        min-height: 30vh;
+        margin-top: 12px;
+        margin-bottom: 12px;
+      }
+
+      .back-arrow {
+        font-size: clamp(18px, 5vw, 24px);
+        width: clamp(40px, 8vw, 50px);
+        height: clamp(40px, 8vw, 50px);
+      }
+    }
+
+    @media (max-width: 400px) {
+      :root {
+        --shift-left: 12px;
+        --page-pad-x: 10px;
+        --page-pad-top: 10px;
+      }
+
+      .titulo {
+        font-size: clamp(14px, 5vw, 20px);
+        margin: 0 0 10px 0;
+      }
+
+      p {
+        font-size: clamp(10px, 2.5vw, 12px);
+        line-height: 1.5;
+        margin: 0 0 12px 0;
+      }
+
+      #contenedor-visual {
+        min-height: 25vh;
+        margin-top: 10px;
+        margin-bottom: 10px;
       }
     }
   </style>
 </head>
 <body>
-  <a class="back-arrow" href="index.html" aria-label="Volver al index">&#8592;</a>
+  <a class="back-arrow" href="../../index.html" aria-label="Volver al index">&#8592;</a>
   <h1 class="titulo">002 Archivos Olvidados</h1>
+  <p>Archivos perdidos se presenta como un proceso de creación disruptiva que, al entenderse como caos, genera un espacio intermedio en el que la imagen se encuentra en constante mutación. En lugar de ser una representación fija del pasado, la imagen se transforma en una experiencia abierta, en tránsito continuo entre el olvido y la memoria, entre el pasado y el futuro. A través de la digitalización, el proyecto no solo utiliza la tecnología como medio, sino que se adentra en un proceso filosófico que cuestiona la comprensión tradicional de la imagen y la memoria. De esta manera, Archivos perdidos re-configura las relaciones entre el tiempo, el espacio y el olvido, desafiando la linealidad de la historia y proponiendo una nueva manera de entender la conservación y la transitoriedad de la memoria visual.</p>
   <main>
     <div id="contenedor-visual" aria-label="Pieza visual de Archivos Olvidados"></div>
   </main>
@@ -217,8 +336,11 @@
     }
 
     function touchStarted() {
-      activarAudio();
-      return false;
+      if (event.target.tagName === 'CANVAS') {
+        activarAudio();
+        return false;
+      }
+      return true;
     }
 
     function draw() {

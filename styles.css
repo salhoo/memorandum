@@ -28,6 +28,22 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 
+h1, h2, h3, h4, h5, h6, p, a {
+  font-family: inherit;
+  color: var(--ink);
+}
+
+a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+a:hover,
+button:hover {
+  text-decoration: underline;
+  opacity: 0.85;
+}
+
 .escena {
   position: relative;
   width: 100%;

@@ -4,6 +4,9 @@
   --line: #1a1a1a;
   --page-pad-x: clamp(14px, 3vw, 28px);
   --page-pad-y: clamp(14px, 3vw, 26px);
+  --page-pad-top: clamp(14px, 3vw, 26px);
+  --page-pad-bottom: clamp(14px, 3vw, 26px);
+  --shift-left: 5cm;
 }
 
 *,
@@ -24,6 +27,13 @@ body {
   color: var(--ink);
   font-family: "Space Mono", "Lucida Console", "Courier New", Courier, monospace;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  padding: var(--page-pad-top) var(--page-pad-x) var(--page-pad-bottom) max(var(--page-pad-x), var(--shift-left));
+  margin: 0;
 }
 
 .escena {
@@ -88,6 +98,50 @@ body {
   cursor: pointer;
 }
 
+.back-arrow {
+  position: fixed;
+  top: calc(var(--page-pad-top) + env(safe-area-inset-top, 0px));
+  left: max(14px, calc(var(--page-pad-x) + env(safe-area-inset-left, 0px) - 10px));
+  z-index: 1000;
+  color: #111;
+  text-decoration: none;
+  font-size: clamp(24px, 5vw, 1.15cm);
+  width: clamp(44px, 8vw, 1.3cm);
+  height: clamp(44px, 8vw, 1.3cm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  font-weight: 700;
+  padding: 0;
+}
+
+.back-arrow:hover {
+  opacity: 0.7;
+}
+
+.titulo {
+  font-size: clamp(24px, 3vw, 34px);
+  font-weight: 500;
+  margin: 0 0 24px;
+  width: 100%;
+  text-align: justify;
+  hyphens: none;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+p {
+  font-size: clamp(16px, 2vw, 20px);
+  line-height: 1.4;
+  margin: 0 0 24px;
+  width: 100%;
+  text-align: justify;
+  hyphens: none;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
 @media (max-width: 640px) {
   .escena {
     min-height: 100svh;
@@ -96,6 +150,10 @@ body {
   .etiqueta-esquina {
     top: calc(var(--page-pad-y) + env(safe-area-inset-top, 0px));
     left: calc(var(--page-pad-x) + env(safe-area-inset-left, 0px));
+  }
+
+  body {
+    padding-left: var(--page-pad-x);
   }
 
   .palabra-centro {

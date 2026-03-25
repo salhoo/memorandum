@@ -8,7 +8,13 @@ const TAMANO_PUNTO = 10;
 const ANGULO_INICIO = Math.PI * 0.5;
 const FACTOR_RADIO_INICIAL = 0.52;
 const DESFASE_PUNTOS = 0.08;
-const PAGINAS_PUNTOS = ["001.html", "002.html", "003.html", "004.html", "005.html"];
+const PAGINAS_PUNTOS = [
+  "memorand-m/Portafolio_Salho/001.html",
+  "memorand-m/Portafolio_Salho/002.html",
+  "memorand-m/Portafolio_Salho/003.html",
+  "memorand-m/Portafolio_Salho/004.html",
+  "memorand-m/Portafolio_Salho/005.html"
+];
 
 const ESPACIO_SVG = "http://www.w3.org/2000/svg";
 const svg = document.getElementById("espiral-svg");
