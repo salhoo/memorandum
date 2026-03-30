@@ -18,7 +18,7 @@
 html,
 body {
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   margin: 0;
 }
 
@@ -26,7 +26,8 @@ body {
   background: var(--bg);
   color: var(--ink);
   font-family: "Space Mono", "Lucida Console", "Courier New", Courier, monospace;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -34,6 +35,10 @@ body {
   min-height: 100vh;
   padding: var(--page-pad-top) var(--page-pad-x) var(--page-pad-bottom) max(var(--page-pad-x), var(--shift-left));
   margin: 0;
+}
+
+body.index-centered {
+  justify-content: center;
 }
 
 .escena {
@@ -125,10 +130,12 @@ body {
   font-weight: 500;
   margin: 0 0 24px;
   width: 100%;
-  text-align: justify;
+  text-align: left;
   hyphens: none;
   word-wrap: break-word;
   overflow-wrap: break-word;
+  padding-left: clamp(76px, 9vw, 3cm); /* Deja un poco mas de espacio para el back arrow */
+  box-sizing: border-box;
 }
 
 p {
@@ -142,7 +149,47 @@ p {
   overflow-wrap: break-word;
 }
 
+
+.artist-about {
+  width: 100%;
+  margin: 60px 0 0;
+  padding-left: clamp(76px, 9vw, 3cm);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.artist-salho {
+  width: min(100%, 900px);
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 24px;
+  flex-wrap: wrap;
+  align-self: flex-start;
+}
+
+.artist-photo {
+  width: min(100%, 460px);
+  max-width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  border-radius: 0;
+}
+
 @media (max-width: 640px) {
+  .artist-salho {
+    flex-direction: column;
+  }
+  .artist-photo {
+    width: 100%;
+    height: auto;
+    margin: 0;
+  }
+
   .escena {
     min-height: 100svh;
   }
@@ -162,3 +209,21 @@ p {
     text-align: center;
   }
 }
+  .escena {
+    min-height: 100svh;
+  }
+
+  .etiqueta-esquina {
+    top: calc(var(--page-pad-y) + env(safe-area-inset-top, 0px));
+    left: calc(var(--page-pad-x) + env(safe-area-inset-left, 0px));
+  }
+
+  body {
+    padding-left: var(--page-pad-x);
+  }
+
+  .palabra-centro {
+    top: 52%;
+    width: min(88vw, 360px);
+    text-align: center;
+  }

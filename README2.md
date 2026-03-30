@@ -15,7 +15,7 @@ Este repositorio funciona como un archivo digital que reúne el material artíst
 ---
 
 ## La tecnología web como un recurso artistico 🌐
-Walter Benjamin afirma que la reproducción técnica destruye el “aquí y ahora” de la obra. Al crear arte en la web, asumo esta pérdida. Sin embargo, me es irrelevante la exclusividad del aura; me interesa, más bien, el valor del rastro. Para mí, almacenar arte en la inmensa web es una forma de dejar constancia y resistir al olvido. Sé que siempre se pierde la batalla ante la extrema reproductibilidad de los medios, pero encuentro algo profundamente poético en la obstinación de intentarlo. Alojar un archivo es mi forma de afirmar mi existencia, a pesar de la inmensidad. Este tipo de reflexiones vienen a mí al desarrollar mis habilidades con las tecnologías web durante mi formación universitaria; hay algo de noble en ello.
+Walter Benjamin afirma que la reproducción técnica destruye el “aquí y ahora” de la obra. Al crear arte en la web, asumo esta pérdida. Sin embargo, me es irrelevante la exclusividad del aura; me interesa más bien, el valor del rastro. Para mí, almacenar arte en la inmensa web es una forma de dejar constancia y resistir al olvido. Sé que siempre se pierde la batalla ante la extrema reproductibilidad de los medios, pero encuentro algo profundamente poético en la obstinación de intentarlo. Alojar un archivo es mi forma de afirmar mi existencia, a pesar de la inmensidad. Este tipo de reflexiones vienen a mí al desarrollar mis habilidades con las tecnologías web durante mi formación universitaria; hay algo de noble en ello.
 
 
 

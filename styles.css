@@ -125,3 +125,49 @@ button:hover {
   
 }
 
+.artist-bio {
+  background: rgba(255, 255, 255, 0.96);
+  color: var(--ink);
+  padding: clamp(1rem, 3vw, 2rem);
+  margin: 0 auto;
+  max-width: 960px;
+}
+
+.artist-card {
+  display: grid;
+  grid-template-columns: minmax(120px, 240px) 1fr;
+  gap: 1.25rem;
+  align-items: center;
+}
+
+.artist-photo {
+  width: 100%;
+  max-width: 240px;
+  height: auto;
+  border: 2px solid var(--line);
+  object-fit: cover;
+  border-radius: 0.45rem;
+}
+
+.artist-text h2 {
+  margin-top: 0;
+  font-size: clamp(1.15rem, 2vw, 1.5rem);
+  letter-spacing: 0.06em;
+}
+
+.artist-text p {
+  margin: 0.45rem 0;
+  line-height: 1.45;
+}
+
+@media (max-width: 760px) {
+  .artist-card {
+    grid-template-columns: 1fr;
+  }
+
+  .artist-photo {
+    max-width: 100%;
+  }
+}
+
+
