@@ -1,4 +1,4 @@
-﻿<!doctype html>
+﻿<<!doctype html>
 <html lang="es">
 <head>
   <meta charset="utf-8">
@@ -11,10 +11,11 @@
 
   <style>
     :root {
-      --shift-left: 5cm;
-      --page-pad-x: clamp(18px, 4vw, 24px);
+      --page-pad-x: clamp(12px, 4vw, 24px);
       --page-pad-top: clamp(18px, 4vw, 24px);
-      --page-pad-bottom: clamp(24px, 5vw, 32px);
+      --page-pad-bottom: clamp(20px, 4vw, 28px);
+      --content-max: 1180px;
+      --content-gap: clamp(18px, 3vw, 28px);
       --mobile-top-offset: 72px;
     }
 
@@ -22,159 +23,161 @@
       box-sizing: border-box;
     }
 
+    html,
     body {
       margin: 0;
+      min-height: 100%;
+    }
+
+    body {
       min-height: 100vh;
       min-height: 100svh;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
+      background: #ffffff;
+      color: #111111;
       font-family: "Space Mono", "Lucida Console", "Courier New", Courier, monospace;
-      background: #fff;
-      color: #111;
       padding:
         calc(var(--page-pad-top) + env(safe-area-inset-top, 0px))
         calc(var(--page-pad-x) + env(safe-area-inset-right, 0px))
         calc(var(--page-pad-bottom) + env(safe-area-inset-bottom, 0px))
-        max(calc(var(--page-pad-x) + env(safe-area-inset-left, 0px)), var(--shift-left));
+        calc(var(--page-pad-x) + env(safe-area-inset-left, 0px));
       overflow-x: hidden;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
     }
 
     .back-arrow {
       position: fixed;
       top: calc(var(--page-pad-top) + env(safe-area-inset-top, 0px));
-      left: max(14px, calc(var(--page-pad-x) + env(safe-area-inset-left, 0px) - 10px));
-      z-index: 1000;
-      color: #111;
-      text-decoration: none;
-      font-size: clamp(24px, 5vw, 1.15cm);
-      width: clamp(44px, 8vw, 1.3cm);
-      height: clamp(44px, 8vw, 1.3cm);
+      left: calc(var(--page-pad-x) + env(safe-area-inset-left, 0px));
+      z-index: 20;
+      width: clamp(42px, 7vw, 52px);
+      height: clamp(42px, 7vw, 52px);
       display: flex;
       align-items: center;
       justify-content: center;
-      line-height: 1;
+      color: #111111;
+      text-decoration: none;
+      font-size: clamp(22px, 4vw, 28px);
       font-weight: 700;
-      padding: 0;
+      line-height: 1;
     }
 
     .back-arrow:hover {
       opacity: 0.7;
     }
 
-    .titulo {
-      font-size: clamp(24px, 3vw, 34px);
-      font-weight: 500;
-      margin: 0 0 20px;
-      width: 100%;
-      text-align: justify;
-      hyphens: none;
-      word-wrap: break-word;
-      overflow-wrap: break-word;
-    }
-
-    p {
-      font-size: clamp(13px, 2vw, 16px);
-      line-height: 1.6;
-      word-wrap: break-word;
-      overflow-wrap: break-word;
-      width: 100%;
-      margin: 0 0 24px 0;
-      text-align: justify;
-      hyphens: none;
-    }
-
-    main {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      margin: clamp(48px, 8vh, 96px) 0;
-    }
-
-    @media (min-width: 1025px) {
-      main {
-        width: calc(100% + var(--shift-left) + var(--page-pad-x));
-        margin-left: calc(-1 * var(--shift-left));
-      }
-
-      .titulo {
-        padding-right: calc(var(--shift-left) - var(--page-pad-x));
-      }
-
-      p {
-        padding-right: calc(var(--shift-left) - var(--page-pad-x) + 1cm);
-      }
-    }
-
-    .media-container {
-      width: 100%;
-      max-width: 900px;
-    }
-
-    .zine-ciudades {
-      width: 100%;
-      max-width: 1200px;
+    .page-shell {
+      width: min(100%, var(--content-max));
       margin: 0 auto;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 18px;
+      gap: var(--content-gap);
+      padding-top: clamp(44px, 8vw, 60px);
+    }
+
+    .titulo {
+      margin: 0;
+      font-size: clamp(24px, 4.2vw, 36px);
+      font-weight: 500;
+      line-height: 1.12;
+      overflow-wrap: break-word;
+    }
+
+    .intro {
+      margin: 0;
+      font-size: clamp(13px, 2.6vw, 16px);
+      line-height: 1.7;
+      text-align: justify;
+      font-style: italic;
+      overflow-wrap: break-word;
     }
 
     .flipbook-shell {
-      width: 100%;
       display: flex;
       flex-direction: column;
-      align-items: center;
       gap: 14px;
     }
 
     #flipbook-container {
       width: 100%;
+      min-height: clamp(300px, 72vh, 780px);
+      position: relative;
       display: flex;
-      justify-content: center;
       align-items: center;
-      min-height: 70vh;
+      justify-content: center;
+      padding: clamp(10px, 2vw, 20px);
       background: #f3f3f3;
-      padding: 20px;
       overflow: hidden;
     }
 
     #flipbook {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       margin: 0 auto;
     }
 
-    .pdf-fallback {
-      width: 100%;
-      max-width: 1000px;
-      height: min(78vh, 1100px);
-      border: 0;
-      background: #fff;
-      display: block;
+    #flipbook[hidden] {
+      display: none;
     }
 
     .page {
-      background: white;
+      background: #ffffff;
       overflow: hidden;
+    }
+
+    .page-frame {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #ffffff;
+    }
+
+    .page-frame.is-placeholder {
+      background:
+        linear-gradient(135deg, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.06)),
+        #ffffff;
+    }
+
+    .page-canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .page-loading {
+      font-size: 12px;
+      color: #5f5f5f;
+      text-transform: lowercase;
+    }
+
+    #pdfFallbackHost {
+      width: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    .page img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
+    #pdfFallbackHost[hidden] {
+      display: none;
+    }
+
+    #flipbook .stf__wrapper,
+    #flipbook .stf__block {
+      margin-left: auto !important;
+      margin-right: auto !important;
+    }
+
+    .pdf-fallback {
       display: block;
-      user-select: none;
-      -webkit-user-drag: none;
+      width: 100%;
+      height: min(80vh, 920px);
+      border: 0;
+      background: #ffffff;
     }
 
     .flipbook-controls {
-      width: 100%;
-      max-width: 900px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -189,66 +192,46 @@
     .flip-btn {
       border: none;
       background: transparent;
-      color: #111;
-      font-family: inherit;
-      font-size: 14px;
+      color: #111111;
       cursor: pointer;
-      padding: 8px 12px;
+      padding: 6px 10px;
+      font-family: inherit;
     }
 
     .flip-btn:hover {
-      opacity: 0.65;
+      opacity: 0.7;
     }
 
     .flip-btn:disabled {
-      opacity: 0.3;
+      opacity: 0.35;
       cursor: default;
     }
 
-    .flip-status {
+    .flip-status,
+    .loading-text,
+    .flipbook-note {
+      margin: 0;
       font-size: 13px;
-      min-width: 70px;
+      line-height: 1.4;
       text-align: center;
     }
 
-    .loading-text {
-      font-size: 13px;
-      opacity: 0.8;
-      text-align: center;
-    }
-
-    @media (max-width: 1024px) {
-      :root {
-        --shift-left: 3cm;
-      }
+    .loading-text,
+    .flipbook-note {
+      color: #5f5f5f;
     }
 
     @media (max-width: 900px) {
-      :root {
-        --shift-left: 24px;
-        --page-pad-x: clamp(12px, 3vw, 18px);
-      }
-
       body {
-        justify-content: flex-start;
-        padding:
-          calc(var(--mobile-top-offset) + env(safe-area-inset-top, 0px))
-          calc(var(--page-pad-x) + env(safe-area-inset-right, 0px))
-          calc(var(--page-pad-bottom) + env(safe-area-inset-bottom, 0px))
-          calc(var(--page-pad-x) + env(safe-area-inset-left, 0px));
+        padding-top: calc(var(--mobile-top-offset) + env(safe-area-inset-top, 0px));
       }
 
-      .titulo {
-        font-size: clamp(18px, 5vw, 28px);
-        margin: 0 0 16px 0;
-      }
-
-      p {
-        font-size: clamp(12px, 2.5vw, 15px);
+      .page-shell {
+        padding-top: 0;
       }
 
       #flipbook-container {
-        min-height: auto;
+        min-height: clamp(250px, 62vh, 620px);
         padding: 10px 0;
         background: transparent;
       }
@@ -256,24 +239,18 @@
 
     @media (max-width: 600px) {
       :root {
-        --shift-left: 16px;
-        --page-pad-x: clamp(10px, 2.5vw, 14px);
+        --page-pad-x: clamp(10px, 3vw, 14px);
       }
 
       .titulo {
-        font-size: clamp(16px, 6vw, 24px);
-        margin: 0 0 12px 0;
+        font-size: clamp(18px, 6vw, 26px);
       }
 
-      p {
-        font-size: clamp(11px, 3vw, 14px);
-        margin: 0 0 16px 0;
-      }
-
-      .back-arrow {
-        font-size: clamp(18px, 5vw, 24px);
-        width: clamp(40px, 8vw, 50px);
-        height: clamp(40px, 8vw, 50px);
+      .intro,
+      .flip-status,
+      .loading-text,
+      .flipbook-note {
+        font-size: 12px;
       }
 
       .flipbook-controls {
@@ -281,30 +258,8 @@
       }
 
       .flip-btn {
-        font-size: 12px;
         padding: 6px 8px;
-      }
-
-      .flip-status {
         font-size: 12px;
-      }
-    }
-
-    @media (max-width: 400px) {
-      :root {
-        --shift-left: 12px;
-        --page-pad-x: 10px;
-      }
-
-      .titulo {
-        font-size: clamp(14px, 5vw, 20px);
-        margin: 0 0 10px 0;
-      }
-
-      p {
-        font-size: clamp(10px, 2.5vw, 12px);
-        line-height: 1.5;
-        margin: 0 0 12px 0;
       }
     }
   </style>
@@ -312,25 +267,25 @@
 <body>
   <a class="back-arrow" href="../../index.html" aria-label="Volver al index">&#8592;</a>
 
-  <h1 class="titulo">004 ciudad(es): narrativas Audiovisuales alrededor de la ciudad; poética urbana.</h1>
+  <main class="page-shell">
+    <h1 class="titulo">004 ciudad(es): narrativas Audiovisuales alrededor de la ciudad; poética urbana.</h1>
+    <p class="intro">Las crónicas urbanas de la vida cotidiana, nos proporciona otra perspectiva de la construcción de la ciudad, una construcción social del espacio.</p>
 
-  <p style="font-style: italic;">Las crónicas urbanas de la vida cotidiana, nos proporciona otra perspectiva de la construcción de la ciudad, una construcción social del espacio.</p>
-
-  <main>
-    <div class="zine-ciudades">
-      <div class="flipbook-shell">
-        <div id="flipbook-container">
-          <div id="loading" class="loading-text">cargando revista...</div>
-          <div id="flipbook" style="display:none;"></div>
-        </div>
-
-        <div class="flipbook-controls">
-          <button class="flip-btn" id="prevBtn" type="button">← anterior</button>
-          <div class="flip-status"><span id="currentPage">1</span>/<span id="totalPages">--</span></div>
-          <button class="flip-btn" id="nextBtn" type="button">siguiente →</button>
-        </div>
+    <section class="flipbook-shell" aria-label="Revista ciudad(es)">
+      <div id="flipbook-container">
+        <div id="loading" class="loading-text">cargando revista...</div>
+        <div id="pdfFallbackHost" hidden></div>
+        <div id="flipbook" hidden></div>
       </div>
-    </div>
+
+      <div class="flipbook-controls" id="flipbookControls">
+        <button class="flip-btn" id="prevBtn" type="button">← anterior</button>
+        <div class="flip-status"><span id="currentPage">1</span>/<span id="totalPages">--</span></div>
+        <button class="flip-btn" id="nextBtn" type="button">siguiente →</button>
+      </div>
+
+      <p class="flipbook-note" id="flipbookNote">Desliza, toca o usa las flechas para hojear.</p>
+    </section>
   </main>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
@@ -339,153 +294,317 @@
   <script>
     const pdfUrl = "assets/ciudad(es).pdf";
 
+    const flipbookContainerEl = document.getElementById("flipbook-container");
     const flipbookEl = document.getElementById("flipbook");
+    const fallbackHostEl = document.getElementById("pdfFallbackHost");
     const loadingEl = document.getElementById("loading");
     const currentPageEl = document.getElementById("currentPage");
     const totalPagesEl = document.getElementById("totalPages");
     const prevBtn = document.getElementById("prevBtn");
     const nextBtn = document.getElementById("nextBtn");
-    const controlsEl = document.querySelector(".flipbook-controls");
+    const controlsEl = document.getElementById("flipbookControls");
+    const noteEl = document.getElementById("flipbookNote");
 
-    let pageFlipInstance = null;
-    let pdfDoc = null;
-    let usingNativePdfViewer = false;
+    const viewerState = {
+      doc: null,
+      pageWidth: 650,
+      pageHeight: 406,
+      currentIndex: 0,
+      instance: null,
+      layoutKey: "",
+      sessionId: 0,
+      resizeTimer: 0
+    };
 
-    function showNativePdfFallback() {
-      usingNativePdfViewer = true;
-      loadingEl.style.display = "none";
-      flipbookEl.style.display = "none";
-      controlsEl.classList.add("is-hidden");
-      flipbookEl.innerHTML = "";
+    const renderingPages = new Map();
 
-      const iframe = document.createElement("iframe");
-      iframe.className = "pdf-fallback";
-      iframe.src = pdfUrl + "#view=FitH";
-      iframe.title = "Revista ciudad(es)";
-
-      const container = document.getElementById("flipbook-container");
-      container.innerHTML = "";
-      container.appendChild(iframe);
-    }
-
-    async function renderPdfPageToImage(page, scale = 2) {
-      const viewport = page.getViewport({ scale });
-      const canvas = document.createElement("canvas");
-      const context = canvas.getContext("2d");
-
-      canvas.width = viewport.width;
-      canvas.height = viewport.height;
-
-      await page.render({
-        canvasContext: context,
-        viewport: viewport
-      }).promise;
-
-      return canvas.toDataURL("image/jpeg", 0.95);
-    }
-
-    function createPageElement(imageUrl, pageNumber) {
-      const page = document.createElement("div");
-      page.className = "page";
-      page.setAttribute("data-density", "hard");
-
-      const img = document.createElement("img");
-      img.src = imageUrl;
-      img.alt = "Página " + pageNumber + " de ciudades";
-
-      page.appendChild(img);
-      return page;
-    }
-
-    function getFlipSize() {
-      const viewportWidth = window.innerWidth;
-
-      if (viewportWidth <= 600) {
-        return {
-          width: 280,
-          height: 396,
-          minWidth: 240,
-          maxWidth: 320,
-          minHeight: 340,
-          maxHeight: 460
-        };
-      }
-
-      if (viewportWidth <= 900) {
-        return {
-          width: 340,
-          height: 480,
-          minWidth: 280,
-          maxWidth: 380,
-          minHeight: 380,
-          maxHeight: 540
-        };
-      }
-
-      return {
-        width: 420,
-        height: 594,
-        minWidth: 315,
-        maxWidth: 520,
-        minHeight: 446,
-        maxHeight: 735
-      };
-    }
-
-    function updateControls() {
-      if (!pageFlipInstance) return;
-
-      const currentIndex = pageFlipInstance.getCurrentPageIndex();
-      const total = pageFlipInstance.getPageCount();
-
-      currentPageEl.textContent = currentIndex + 1;
-      totalPagesEl.textContent = total;
-
-      prevBtn.disabled = currentIndex <= 0;
-      nextBtn.disabled = currentIndex >= total - 1;
-    }
-
-    async function initFlipbook() {
-      const canUseFlipbook =
+    function canUseFlipbook() {
+      return (
         window.location.protocol !== "file:" &&
         typeof window.pdfjsLib !== "undefined" &&
         typeof window.St !== "undefined" &&
-        typeof window.St.PageFlip !== "undefined";
+        typeof window.St.PageFlip !== "undefined"
+      );
+    }
 
-      if (!canUseFlipbook) {
-        showNativePdfFallback();
+    function getPageRatio() {
+      return viewerState.pageWidth / Math.max(viewerState.pageHeight, 1);
+    }
+
+    function getLayoutKey() {
+      const breakpoint = window.innerWidth <= 600 ? "xs" : window.innerWidth <= 900 ? "sm" : "lg";
+      const orientation = window.innerWidth > window.innerHeight ? "landscape" : "portrait";
+      return breakpoint + "-" + orientation;
+    }
+
+    function getRenderScale() {
+      const containerWidth = Math.max(280, flipbookContainerEl.clientWidth || window.innerWidth);
+      const targetPageWidth = Math.min(
+        containerWidth - 24,
+        window.innerWidth <= 600 ? 320 : window.innerWidth <= 900 ? 400 : 520
+      );
+      const widthScale = targetPageWidth / Math.max(viewerState.pageWidth, 1);
+      const deviceScale = Math.min(window.devicePixelRatio || 1, window.innerWidth <= 600 ? 1.4 : 1.8);
+      return Math.max(0.85, Math.min(1.65, widthScale * deviceScale));
+    }
+
+    function getFlipSize() {
+      const containerWidth = Math.max(280, flipbookContainerEl.clientWidth || window.innerWidth);
+      const maxPageWidth = Math.min(
+        containerWidth - 24,
+        window.innerWidth <= 600 ? 320 : window.innerWidth <= 900 ? 400 : 520
+      );
+      const maxPageHeight = Math.min(
+        window.innerWidth <= 600 ? window.innerHeight * 0.5 : window.innerHeight * 0.66,
+        680
+      );
+
+      let width = maxPageWidth;
+      let height = width / getPageRatio();
+
+      if (height > maxPageHeight) {
+        height = maxPageHeight;
+        width = height * getPageRatio();
+      }
+
+      return {
+        width: Math.round(width),
+        height: Math.round(height),
+        minWidth: Math.round(Math.max(220, width * 0.84)),
+        maxWidth: Math.round(Math.max(width, width * 1.05)),
+        minHeight: Math.round(Math.max(150, height * 0.84)),
+        maxHeight: Math.round(Math.max(height, height * 1.05))
+      };
+    }
+
+    function showLoading(message) {
+      loadingEl.textContent = message;
+      loadingEl.style.display = "block";
+      flipbookEl.hidden = true;
+    }
+
+    function hideLoading() {
+      loadingEl.style.display = "none";
+      flipbookEl.hidden = false;
+    }
+
+    function clearFallback() {
+      fallbackHostEl.hidden = true;
+      fallbackHostEl.innerHTML = "";
+    }
+
+    function showFallback(message) {
+      loadingEl.style.display = "none";
+      flipbookEl.hidden = true;
+      controlsEl.classList.add("is-hidden");
+      noteEl.textContent = message;
+      fallbackHostEl.hidden = false;
+      fallbackHostEl.innerHTML = "";
+
+      const iframe = document.createElement("iframe");
+      iframe.className = "pdf-fallback";
+      iframe.src = pdfUrl + "#page=" + (viewerState.currentIndex + 1) + "&view=FitH";
+      iframe.title = "Revista ciudad(es)";
+      fallbackHostEl.appendChild(iframe);
+    }
+
+    function updateControls() {
+      const totalPages = viewerState.doc ? viewerState.doc.numPages : 0;
+      currentPageEl.textContent = String(viewerState.currentIndex + 1);
+      totalPagesEl.textContent = totalPages ? String(totalPages) : "--";
+      prevBtn.disabled = viewerState.currentIndex <= 0;
+      nextBtn.disabled = totalPages === 0 || viewerState.currentIndex >= totalPages - 1;
+    }
+
+    function centerFlipbook() {
+      const wrapper = flipbookEl.querySelector(".stf__wrapper");
+      if (wrapper) {
+        wrapper.style.marginLeft = "auto";
+        wrapper.style.marginRight = "auto";
+      }
+    }
+
+    function createPageElement(pageNumber) {
+      const page = document.createElement("div");
+      page.className = "page";
+      page.dataset.pageNumber = String(pageNumber);
+      page.dataset.rendered = "false";
+
+      if (pageNumber === 1 || (viewerState.doc && pageNumber === viewerState.doc.numPages)) {
+        page.setAttribute("data-density", "hard");
+      }
+
+      const frame = document.createElement("div");
+      frame.className = "page-frame is-placeholder";
+
+      const label = document.createElement("span");
+      label.className = "page-loading";
+      label.textContent = "pagina " + pageNumber;
+
+      frame.appendChild(label);
+      page.appendChild(frame);
+
+      return page;
+    }
+
+    function getPageElement(pageNumber) {
+      return flipbookEl.querySelector('.page[data-page-number="' + pageNumber + '"]');
+    }
+
+    function destroyFlipbook() {
+      if (viewerState.instance) {
+        viewerState.instance.destroy();
+        viewerState.instance = null;
+      }
+
+      viewerState.sessionId += 1;
+      renderingPages.clear();
+      flipbookEl.innerHTML = "";
+    }
+
+    async function ensurePdfLoaded() {
+      if (viewerState.doc) {
+        return viewerState.doc;
+      }
+
+      pdfjsLib.GlobalWorkerOptions.workerSrc =
+        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+
+      showLoading("abriendo revista...");
+
+      viewerState.doc = await pdfjsLib.getDocument(pdfUrl).promise;
+
+      const firstPage = await viewerState.doc.getPage(1);
+      const viewport = firstPage.getViewport({ scale: 1 });
+      viewerState.pageWidth = viewport.width;
+      viewerState.pageHeight = viewport.height;
+      totalPagesEl.textContent = String(viewerState.doc.numPages);
+      noteEl.textContent = viewerState.doc.numPages + " paginas";
+
+      return viewerState.doc;
+    }
+
+    async function renderPdfPage(pageNumber, sessionId) {
+      const pageEl = getPageElement(pageNumber);
+      if (!pageEl || pageEl.dataset.rendered === "true") {
         return;
       }
 
-      usingNativePdfViewer = false;
+      if (renderingPages.has(pageNumber)) {
+        return renderingPages.get(pageNumber);
+      }
+
+      const task = (async () => {
+        const pdfPage = await viewerState.doc.getPage(pageNumber);
+        const viewport = pdfPage.getViewport({ scale: getRenderScale() });
+        const canvas = document.createElement("canvas");
+        const context = canvas.getContext("2d", { alpha: false });
+
+        canvas.className = "page-canvas";
+        canvas.width = Math.ceil(viewport.width);
+        canvas.height = Math.ceil(viewport.height);
+
+        await pdfPage.render({
+          canvasContext: context,
+          viewport: viewport
+        }).promise;
+
+        if (sessionId !== viewerState.sessionId) {
+          return;
+        }
+
+        const targetPageEl = getPageElement(pageNumber);
+        if (!targetPageEl || !targetPageEl.isConnected) {
+          return;
+        }
+
+        const frame = targetPageEl.firstElementChild || targetPageEl;
+        frame.className = "page-frame";
+        frame.innerHTML = "";
+        frame.appendChild(canvas);
+        targetPageEl.dataset.rendered = "true";
+
+        if (typeof pdfPage.cleanup === "function") {
+          pdfPage.cleanup();
+        }
+      })()
+        .catch((error) => {
+          console.error(error);
+        })
+        .finally(() => {
+          renderingPages.delete(pageNumber);
+        });
+
+      renderingPages.set(pageNumber, task);
+      return task;
+    }
+
+    async function renderVisiblePages() {
+      if (!viewerState.doc) {
+        return;
+      }
+
+      const currentPageNumber = viewerState.currentIndex + 1;
+      const pagesToRender = [];
+
+      for (const offset of [-1, 0, 1, 2]) {
+        const pageNumber = currentPageNumber + offset;
+        if (pageNumber >= 1 && pageNumber <= viewerState.doc.numPages) {
+          pagesToRender.push(pageNumber);
+        }
+      }
+
+      const currentPageEl = getPageElement(currentPageNumber);
+      const needsCurrentPage = currentPageEl && currentPageEl.dataset.rendered !== "true";
+
+      if (needsCurrentPage) {
+        showLoading("cargando pagina " + currentPageNumber + " de " + viewerState.doc.numPages + "...");
+      }
+
+      await Promise.all(
+        pagesToRender.map((pageNumber) => renderPdfPage(pageNumber, viewerState.sessionId))
+      );
+
+      if (needsCurrentPage) {
+        hideLoading();
+      }
+    }
+
+    async function initFlipbook() {
+      if (!canUseFlipbook()) {
+        showFallback("modo revista no disponible aqui; se muestra el PDF.");
+        return;
+      }
+
+      clearFallback();
       controlsEl.classList.remove("is-hidden");
-      pdfjsLib.GlobalWorkerOptions.workerSrc =
-        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
-      loadingEl.style.display = "block";
-      flipbookEl.style.display = "none";
-      flipbookEl.innerHTML = "";
 
-      if (pageFlipInstance) {
-        pageFlipInstance.destroy();
-        pageFlipInstance = null;
+      await ensurePdfLoaded();
+
+      const nextLayoutKey = getLayoutKey();
+      const currentIndex = viewerState.instance
+        ? viewerState.instance.getCurrentPageIndex()
+        : viewerState.currentIndex;
+
+      if (viewerState.instance && nextLayoutKey === viewerState.layoutKey) {
+        viewerState.currentIndex = currentIndex;
+        updateControls();
+        await renderVisiblePages();
+        return;
       }
 
-      pdfDoc = await pdfjsLib.getDocument(pdfUrl).promise;
+      destroyFlipbook();
 
-      const pageImages = [];
-      for (let i = 1; i <= pdfDoc.numPages; i++) {
-        const page = await pdfDoc.getPage(i);
-        const imageUrl = await renderPdfPageToImage(page, 2);
-        pageImages.push(imageUrl);
+      const pageNodes = [];
+      for (let pageNumber = 1; pageNumber <= viewerState.doc.numPages; pageNumber += 1) {
+        const pageNode = createPageElement(pageNumber);
+        flipbookEl.appendChild(pageNode);
+        pageNodes.push(pageNode);
       }
-
-      pageImages.forEach((imageUrl, index) => {
-        flipbookEl.appendChild(createPageElement(imageUrl, index + 1));
-      });
 
       const size = getFlipSize();
 
-      pageFlipInstance = new St.PageFlip(flipbookEl, {
+      viewerState.instance = new St.PageFlip(flipbookEl, {
         width: size.width,
         height: size.height,
         minWidth: size.minWidth,
@@ -493,54 +612,84 @@
         minHeight: size.minHeight,
         maxHeight: size.maxHeight,
         size: "stretch",
-        maxShadowOpacity: 0.25,
+        maxShadowOpacity: 0.2,
         showCover: true,
         mobileScrollSupport: true,
         usePortrait: true,
-        startPage: 0,
+        startPage: Math.min(currentIndex, viewerState.doc.numPages - 1),
         autoSize: true
       });
 
-      pageFlipInstance.loadFromHTML(document.querySelectorAll(".page"));
+      viewerState.instance.loadFromHTML(pageNodes);
+      viewerState.layoutKey = nextLayoutKey;
+      viewerState.currentIndex = viewerState.instance.getCurrentPageIndex();
 
-      pageFlipInstance.on("flip", updateControls);
+      viewerState.instance.on("flip", async (event) => {
+        viewerState.currentIndex = typeof event.data === "number"
+          ? event.data
+          : viewerState.instance.getCurrentPageIndex();
+        updateControls();
+        centerFlipbook();
+        await renderVisiblePages();
+      });
 
-      loadingEl.style.display = "none";
-      flipbookEl.style.display = "block";
+      viewerState.instance.on("changeOrientation", async () => {
+        centerFlipbook();
+        await renderVisiblePages();
+      });
 
       updateControls();
+      centerFlipbook();
+      await renderVisiblePages();
+      hideLoading();
+    }
+
+    function handleViewerError(error) {
+      console.error(error);
+      showFallback("no se pudo cargar el modo revista; se muestra el PDF.");
     }
 
     prevBtn.addEventListener("click", () => {
-      if (pageFlipInstance) pageFlipInstance.flipPrev();
+      if (viewerState.instance) {
+        viewerState.instance.flipPrev();
+      }
     });
 
     nextBtn.addEventListener("click", () => {
-      if (pageFlipInstance) pageFlipInstance.flipNext();
+      if (viewerState.instance) {
+        viewerState.instance.flipNext();
+      }
     });
 
-    document.addEventListener("keydown", (e) => {
-      if (!pageFlipInstance) return;
-      if (e.key === "ArrowLeft") pageFlipInstance.flipPrev();
-      if (e.key === "ArrowRight") pageFlipInstance.flipNext();
+    document.addEventListener("keydown", (event) => {
+      if (!viewerState.instance) {
+        return;
+      }
+
+      if (event.key === "ArrowLeft") {
+        viewerState.instance.flipPrev();
+      }
+
+      if (event.key === "ArrowRight") {
+        viewerState.instance.flipNext();
+      }
     });
 
-    let resizeTimeout;
     window.addEventListener("resize", () => {
-      clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(() => {
-        if (usingNativePdfViewer) return;
-        initFlipbook().catch(err => {
-          console.error(err);
-          loadingEl.textContent = "no se pudo cargar la revista";
-        });
-      }, 250);
+      window.clearTimeout(viewerState.resizeTimer);
+      viewerState.resizeTimer = window.setTimeout(() => {
+        if (!canUseFlipbook()) {
+          return;
+        }
+
+        const nextLayoutKey = getLayoutKey();
+        if (nextLayoutKey !== viewerState.layoutKey) {
+          initFlipbook().catch(handleViewerError);
+        }
+      }, 220);
     });
 
-    initFlipbook().catch(err => {
-      console.error(err);
-      loadingEl.textContent = "no se pudo cargar la revista";
-    });
+    initFlipbook().catch(handleViewerError);
   </script>
 </body>
 </html>
