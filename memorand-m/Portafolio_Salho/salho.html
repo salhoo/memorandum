@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Galería Completa</title>
+  <title>salho | Hanna Salazar.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500;1,600&family=Space+Mono:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
@@ -12,85 +12,25 @@
 </head>
 <body>
   <a class="back-arrow" href="../../index.html" aria-label="Volver al index">&#8592;</a>
-  <h1 class="titulo">galería</h1>
+  <h1 class="titulo">000//Hanna Salazar</h1>
+  <section class="artista-about" aria-label="About the artist">
+    <div class="artist-salho">
+      <img src="../Portafolio_Salho/assets/fotosalho.jpeg" alt="Foto de Salho" class="artist-photo" />
+      <div class="artist-text">
+        <h2>Sobre la artista</h2>
+         <p>
+        Hanna Salazar (Oaxaca, 2003), es una artista formada en la ciudad de Oaxaca de Juarez. Su trabajo se desarrolla en la intimidad de las palabras,
+        intermediarias entre lo audivisual y lo poético. Bajo esta línea ha desarrollado diferentes proyectos audivisuales donde el archivo funciona 
+        como recurso artístico y detonador de memoria. En este sentido -memorandúm- se convierte en un espacio donde se reflexiona la relación entre 
+        imagen, lenguaje y experiencia personal, construyendo narrativas sensibles que dialogan con el territorio, la identidad, el recuerdo y la digitalidad.
+        A través de procesos de recopilación, edición y reinterpretación de materiales digitales visuales y sonoros, crea atmósferas que invitan a la 
+        contemplación, la imaginación o inclusive el olvido. Su obra propone una mirada introspectiva que transforma lo cotidiano en un espacio simbólico cargado de significado.
 
-  <main class="galeria-grid">
-    <figure class="pieza horizontal">
-      <img src="assets/img01.jpg" alt="Escena en rojo y humo" class="galeria-img" loading="lazy" decoding="async">
-    </figure>
+    </p>
 
-    <figure class="pieza horizontal">
-      <img src="assets/img02.jpg" alt="Figura frente a fondo rojo" class="galeria-img" loading="lazy" decoding="async">
-    </figure>
-
-    <figure class="pieza vertical">
-      <img src="assets/img03.jpg" alt="Fachada rosa con farol" class="galeria-img" loading="lazy" decoding="async">
-    </figure>
-
-    <figure class="pieza vertical">
-      <img src="assets/img04.jpg" alt="Escenario rojo entre pantallas" class="galeria-img" loading="lazy" decoding="async">
-    </figure>
-
-    <figure class="pieza horizontal">
-      <img src="assets/img05.jpg" alt="Dúo en escenario azul" class="galeria-img" loading="lazy" decoding="async">
-    </figure>
-
-    <figure class="pieza vertical">
-      <img src="assets/img06.jpg" alt="Calle en blanco y negro" class="galeria-img" loading="lazy" decoding="async">
-    </figure>
-
-    <figure class="pieza horizontal">
-      <img src="assets/img07.jpg" alt="Retrato en habitación" class="galeria-img" loading="lazy" decoding="async">
-    </figure>
-
-    <figure class="pieza vertical">
-      <img src="assets/img08.jpg" alt="Ventana y cortina en blanco y negro" class="galeria-img" loading="lazy" decoding="async">
-    </figure>
-  </main>
-
-  <div class="modal" id="imageModal" aria-hidden="true">
-    <button class="modal-close" id="closeModal" aria-label="Cerrar">&times;</button>
-    <div class="modal-content">
-      <img id="modalImg" src="" alt="">
-      <p id="modalCaption"></p>
+        <p>Este portafolio reúne piezas numeradas (000–005) con prácticas de arte digital, fotografía, video, sonido y recursos poéticos.</p>
+      </div>
     </div>
-  </div>
-
-  <script>
-    const images = document.querySelectorAll('.galeria-img');
-    const modal = document.getElementById('imageModal');
-    const modalImg = document.getElementById('modalImg');
-    const modalCaption = document.getElementById('modalCaption');
-    const closeModal = document.getElementById('closeModal');
-
-    images.forEach(image => {
-      image.addEventListener('click', () => {
-        modal.classList.add('open');
-        modal.setAttribute('aria-hidden', 'false');
-        modalImg.src = image.src;
-        modalImg.alt = image.alt;
-        modalCaption.textContent = image.alt;
-      });
-    });
-
-    closeModal.addEventListener('click', () => {
-      modal.classList.remove('open');
-      modal.setAttribute('aria-hidden', 'true');
-    });
-
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) {
-        modal.classList.remove('open');
-        modal.setAttribute('aria-hidden', 'true');
-      }
-    });
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        modal.classList.remove('open');
-        modal.setAttribute('aria-hidden', 'true');
-      }
-    });
-  </script>
+  </section>
 </body>
 </html>
