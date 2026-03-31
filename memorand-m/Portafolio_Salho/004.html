@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
   <link rel="icon" href="assets/espiralfavicon.png">
+
   <style>
     :root {
       --shift-left: 5cm;
@@ -59,7 +60,9 @@
       padding: 0;
     }
 
-    .back-arrow:hover { opacity: 0.7; }
+    .back-arrow:hover {
+      opacity: 0.7;
+    }
 
     .titulo {
       font-size: clamp(24px, 3vw, 34px);
@@ -110,6 +113,110 @@
       max-width: 900px;
     }
 
+    .zine-ciudades {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .flipbook-shell {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    #flipbook-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 70vh;
+      background: #f3f3f3;
+      padding: 20px;
+      overflow: hidden;
+    }
+
+    #flipbook {
+      margin: 0 auto;
+    }
+
+    .pdf-fallback {
+      width: 100%;
+      max-width: 1000px;
+      height: min(78vh, 1100px);
+      border: 0;
+      background: #fff;
+      display: block;
+    }
+
+    .page {
+      background: white;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .page img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .flipbook-controls {
+      width: 100%;
+      max-width: 900px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .flipbook-controls.is-hidden {
+      display: none;
+    }
+
+    .flip-btn {
+      border: none;
+      background: transparent;
+      color: #111;
+      font-family: inherit;
+      font-size: 14px;
+      cursor: pointer;
+      padding: 8px 12px;
+    }
+
+    .flip-btn:hover {
+      opacity: 0.65;
+    }
+
+    .flip-btn:disabled {
+      opacity: 0.3;
+      cursor: default;
+    }
+
+    .flip-status {
+      font-size: 13px;
+      min-width: 70px;
+      text-align: center;
+    }
+
+    .loading-text {
+      font-size: 13px;
+      opacity: 0.8;
+      text-align: center;
+    }
+
     @media (max-width: 1024px) {
       :root {
         --shift-left: 3cm;
@@ -139,6 +246,12 @@
       p {
         font-size: clamp(12px, 2.5vw, 15px);
       }
+
+      #flipbook-container {
+        min-height: auto;
+        padding: 10px 0;
+        background: transparent;
+      }
     }
 
     @media (max-width: 600px) {
@@ -161,6 +274,19 @@
         font-size: clamp(18px, 5vw, 24px);
         width: clamp(40px, 8vw, 50px);
         height: clamp(40px, 8vw, 50px);
+      }
+
+      .flipbook-controls {
+        gap: 8px;
+      }
+
+      .flip-btn {
+        font-size: 12px;
+        padding: 6px 8px;
+      }
+
+      .flip-status {
+        font-size: 12px;
       }
     }
 
@@ -185,15 +311,236 @@
 </head>
 <body>
   <a class="back-arrow" href="../../index.html" aria-label="Volver al index">&#8592;</a>
-  
-  <h1 class="titulo">004 Narrativas Audiovisuales alrededor de la ciudad; poética urbana.</h1>
-  
+
+  <h1 class="titulo">004 ciudad(es): narrativas Audiovisuales alrededor de la ciudad; poética urbana.</h1>
+
   <p style="font-style: italic;">Las crónicas urbanas de la vida cotidiana, nos proporciona otra perspectiva de la construcción de la ciudad, una construcción social del espacio.</p>
-  
+
   <main>
-    <div class="media-container">
-      <!-- aki va el iframe o kreo q mi archivo -->
+    <div class="zine-ciudades">
+      <div class="flipbook-shell">
+        <div id="flipbook-container">
+          <div id="loading" class="loading-text">cargando revista...</div>
+          <div id="flipbook" style="display:none;"></div>
+        </div>
+
+        <div class="flipbook-controls">
+          <button class="flip-btn" id="prevBtn" type="button">← anterior</button>
+          <div class="flip-status"><span id="currentPage">1</span>/<span id="totalPages">--</span></div>
+          <button class="flip-btn" id="nextBtn" type="button">siguiente →</button>
+        </div>
+      </div>
     </div>
   </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/page-flip/dist/js/page-flip.browser.min.js"></script>
+
+  <script>
+    const pdfUrl = "assets/ciudad(es).pdf";
+
+    const flipbookEl = document.getElementById("flipbook");
+    const loadingEl = document.getElementById("loading");
+    const currentPageEl = document.getElementById("currentPage");
+    const totalPagesEl = document.getElementById("totalPages");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const controlsEl = document.querySelector(".flipbook-controls");
+
+    let pageFlipInstance = null;
+    let pdfDoc = null;
+    let usingNativePdfViewer = false;
+
+    function showNativePdfFallback() {
+      usingNativePdfViewer = true;
+      loadingEl.style.display = "none";
+      flipbookEl.style.display = "none";
+      controlsEl.classList.add("is-hidden");
+      flipbookEl.innerHTML = "";
+
+      const iframe = document.createElement("iframe");
+      iframe.className = "pdf-fallback";
+      iframe.src = pdfUrl + "#view=FitH";
+      iframe.title = "Revista ciudad(es)";
+
+      const container = document.getElementById("flipbook-container");
+      container.innerHTML = "";
+      container.appendChild(iframe);
+    }
+
+    async function renderPdfPageToImage(page, scale = 2) {
+      const viewport = page.getViewport({ scale });
+      const canvas = document.createElement("canvas");
+      const context = canvas.getContext("2d");
+
+      canvas.width = viewport.width;
+      canvas.height = viewport.height;
+
+      await page.render({
+        canvasContext: context,
+        viewport: viewport
+      }).promise;
+
+      return canvas.toDataURL("image/jpeg", 0.95);
+    }
+
+    function createPageElement(imageUrl, pageNumber) {
+      const page = document.createElement("div");
+      page.className = "page";
+      page.setAttribute("data-density", "hard");
+
+      const img = document.createElement("img");
+      img.src = imageUrl;
+      img.alt = "Página " + pageNumber + " de ciudades";
+
+      page.appendChild(img);
+      return page;
+    }
+
+    function getFlipSize() {
+      const viewportWidth = window.innerWidth;
+
+      if (viewportWidth <= 600) {
+        return {
+          width: 280,
+          height: 396,
+          minWidth: 240,
+          maxWidth: 320,
+          minHeight: 340,
+          maxHeight: 460
+        };
+      }
+
+      if (viewportWidth <= 900) {
+        return {
+          width: 340,
+          height: 480,
+          minWidth: 280,
+          maxWidth: 380,
+          minHeight: 380,
+          maxHeight: 540
+        };
+      }
+
+      return {
+        width: 420,
+        height: 594,
+        minWidth: 315,
+        maxWidth: 520,
+        minHeight: 446,
+        maxHeight: 735
+      };
+    }
+
+    function updateControls() {
+      if (!pageFlipInstance) return;
+
+      const currentIndex = pageFlipInstance.getCurrentPageIndex();
+      const total = pageFlipInstance.getPageCount();
+
+      currentPageEl.textContent = currentIndex + 1;
+      totalPagesEl.textContent = total;
+
+      prevBtn.disabled = currentIndex <= 0;
+      nextBtn.disabled = currentIndex >= total - 1;
+    }
+
+    async function initFlipbook() {
+      const canUseFlipbook =
+        window.location.protocol !== "file:" &&
+        typeof window.pdfjsLib !== "undefined" &&
+        typeof window.St !== "undefined" &&
+        typeof window.St.PageFlip !== "undefined";
+
+      if (!canUseFlipbook) {
+        showNativePdfFallback();
+        return;
+      }
+
+      usingNativePdfViewer = false;
+      controlsEl.classList.remove("is-hidden");
+      pdfjsLib.GlobalWorkerOptions.workerSrc =
+        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+      loadingEl.style.display = "block";
+      flipbookEl.style.display = "none";
+      flipbookEl.innerHTML = "";
+
+      if (pageFlipInstance) {
+        pageFlipInstance.destroy();
+        pageFlipInstance = null;
+      }
+
+      pdfDoc = await pdfjsLib.getDocument(pdfUrl).promise;
+
+      const pageImages = [];
+      for (let i = 1; i <= pdfDoc.numPages; i++) {
+        const page = await pdfDoc.getPage(i);
+        const imageUrl = await renderPdfPageToImage(page, 2);
+        pageImages.push(imageUrl);
+      }
+
+      pageImages.forEach((imageUrl, index) => {
+        flipbookEl.appendChild(createPageElement(imageUrl, index + 1));
+      });
+
+      const size = getFlipSize();
+
+      pageFlipInstance = new St.PageFlip(flipbookEl, {
+        width: size.width,
+        height: size.height,
+        minWidth: size.minWidth,
+        maxWidth: size.maxWidth,
+        minHeight: size.minHeight,
+        maxHeight: size.maxHeight,
+        size: "stretch",
+        maxShadowOpacity: 0.25,
+        showCover: true,
+        mobileScrollSupport: true,
+        usePortrait: true,
+        startPage: 0,
+        autoSize: true
+      });
+
+      pageFlipInstance.loadFromHTML(document.querySelectorAll(".page"));
+
+      pageFlipInstance.on("flip", updateControls);
+
+      loadingEl.style.display = "none";
+      flipbookEl.style.display = "block";
+
+      updateControls();
+    }
+
+    prevBtn.addEventListener("click", () => {
+      if (pageFlipInstance) pageFlipInstance.flipPrev();
+    });
+
+    nextBtn.addEventListener("click", () => {
+      if (pageFlipInstance) pageFlipInstance.flipNext();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (!pageFlipInstance) return;
+      if (e.key === "ArrowLeft") pageFlipInstance.flipPrev();
+      if (e.key === "ArrowRight") pageFlipInstance.flipNext();
+    });
+
+    let resizeTimeout;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        if (usingNativePdfViewer) return;
+        initFlipbook().catch(err => {
+          console.error(err);
+          loadingEl.textContent = "no se pudo cargar la revista";
+        });
+      }, 250);
+    });
+
+    initFlipbook().catch(err => {
+      console.error(err);
+      loadingEl.textContent = "no se pudo cargar la revista";
+    });
+  </script>
 </body>
 </html>

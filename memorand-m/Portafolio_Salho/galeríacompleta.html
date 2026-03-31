@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Galería Completa</title>
+  <title>Galer&iacute;a Completa</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500;1,600&family=Space+Mono:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
@@ -12,6 +12,68 @@
 </head>
 <body>
   <a class="back-arrow" href="../../index.html" aria-label="Volver al index">&#8592;</a>
-  <h1 class="titulo">galería</h1>
-  <section class="artista-about" aria-label="About the artist">
-    <div class="artist-salho">
+  <h1 class="titulo">galer&iacute;a</h1>
+
+  <main class="galeria-grid">
+    <img src="assets/img01.jpg" alt="vegyn, 2026" class="galeria-img">
+    <img src="assets/img02.jpg" alt="akrilla, 2025" class="galeria-img">
+    <img src="assets/img03.jpg" alt="oaxaca, 2025" class="galeria-img">
+    <img src="assets/img04.jpg" alt="epistolares, 2025" class="galeria-img">
+    <div class="galeria-item">
+      <img src="assets/img05.jpg" alt="izuljay, 2025" class="galeria-img">
+      <h2 class="galeria-texto">memorand&uacute;m</h2>
+    </div>
+    <img src="assets/img06.jpg" alt="francisco, 2026" class="galeria-img">
+    <div class="galeria-item">
+      <img src="assets/img07.jpg" alt="blanca, habitarelespacio 2026" class="galeria-img">
+      <h2 class="galeria-texto">en forma de visualidad</h2>
+    </div>
+    <img src="assets/img08.jpg" alt="ubaldo, habitarelespacio 2026" class="galeria-img">
+  </main>
+
+  <div class="modal" id="imageModal" aria-hidden="true">
+    <button class="modal-close" id="closeModal" aria-label="Cerrar">&times;</button>
+    <div class="modal-content">
+      <img id="modalImg" src="" alt="">
+      <p id="modalCaption"></p>
+    </div>
+  </div>
+
+  <script>
+    const images = document.querySelectorAll('.galeria-img');
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImg');
+    const modalCaption = document.getElementById('modalCaption');
+    const closeModal = document.getElementById('closeModal');
+
+    images.forEach((image) => {
+      image.addEventListener('click', () => {
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+        modalImg.src = image.src;
+        modalImg.alt = image.alt;
+        modalCaption.textContent = image.alt;
+      });
+    });
+
+    closeModal.addEventListener('click', () => {
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+      }
+    });
+  </script>
+</body>
+</html>
